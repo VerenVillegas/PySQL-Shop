@@ -27,6 +27,26 @@ END$$
 
 DELIMITER ;
 
+-- Triggers --
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_products
+BEFORE INSERT ON products
+FOR EACH ROW
+BEGIN
+    IF NEW.price <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid price: Price must be greater than 0.';
+    END IF;
+
+    -- Check for uniqueness of product_name
+    IF EXISTS (SELECT 1 FROM products WHERE product_name = NEW.product_name) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Duplicate product name: Product names must be unique.';
+    END IF;
+END$$
+
+DELIMITER ;
+
 -- EXEC STATEMENTS --
 
 INSERT INTO `products` VALUES (1, 'Rose Apple 1kg', 5.99, 10);
