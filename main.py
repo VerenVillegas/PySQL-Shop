@@ -1,23 +1,12 @@
-import mysql.connector
-import os 
-from dotenv import load_dotenv
+from src.classes import Database
+from src.classes import Utilities
 
-load_dotenv()
+Utilities.clear_std_out()
+Utilities.print_welcome()
 
-conn = mysql.connector.connect(
-    host = "localhost",
-    user = os.getenv("DATABASE_USER"),
-    password = os.getenv("DATABASE_PASSWORD"),
-    database = os.getenv("DATABASE_NAME")
-)
-
-cursor = conn.cursor()
-
-args = ("Bundaberg Ginger Beer", 12.99, 30) 
-
-cursor.callproc("add_new_product", args)
+args = ("Bed", 600, 2)
+Database.exec_proc("add_new_product", args)
 
 
-conn.commit()
-conn.close()
+
 
