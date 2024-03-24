@@ -10,11 +10,13 @@ CREATE TABLE `products` (
 	
     PRIMARY KEY (`barcode`),
     
-    CHECK (`price` > 0)
+    CHECK (`price` > 0),
+    
+    #Product names should be unique
+    CONSTRAINT UC_Product UNIQUE(`product_name`)
 );
-INSERT INTO `products` VALUES (1, 'Rose Apple 1kg', 5.99, 10);
-INSERT INTO `products` VALUES (2, 'Milo Duo Cereal Family Pack', 7.99, 30) ;
-INSERT INTO `products` VALUES (3, 'Anchor Butter 500g', 4.99, 200);
+
+-- STORED PROCEDURES -- 
 
 DELIMITER $$
 
@@ -25,4 +27,8 @@ END$$
 
 DELIMITER ;
 
-CALL add_new_product('Spongecake', 8.99, 30)
+-- EXEC STATEMENTS --
+
+INSERT INTO `products` VALUES (1, 'Rose Apple 1kg', 5.99, 10);
+INSERT INTO `products` VALUES (2, 'Milo Duo Cereal Family Pack', 7.99, 30) ;
+INSERT INTO `products` VALUES (3, 'Anchor Butter 500g', 4.99, 200);
