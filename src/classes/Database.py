@@ -1,6 +1,8 @@
 import mysql.connector
-import os 
+import os
+import re
 from dotenv import load_dotenv
+from src.classes import Utilities
 
 load_dotenv()
 
@@ -59,3 +61,33 @@ def exec_proc(storedProc, args):
             db_disconnect(conn)
     else:
         print("Connection could not be established with database.")
+
+
+def validate_input(prompt, regex):
+    """
+    Validates a user input against a regular expression.
+
+    Parameters
+    ----------
+    prompt: str - The prompt for the user's input, which is printed to the terminal.
+    regex: regexp - The regular expression to match against the user's input.
+    """
+    while True:
+        user_input = input(prompt + ": ")
+        if re.match(regex, user_input):
+            return user_input
+        else:
+            Utilities.clear_std_out()
+            print(f"Invalid {prompt.lower()}. Please try again.\n")
+
+def add_product():
+    """
+    Guides the user through a series of prompts to create a new product then returns all of the product details.
+    """
+    name_regex = r"^(?=.*[a-zA-Z])[\w'-]+(?:[\s_-][\w'-]+)*$"
+    price_regex = r'^\d+(?:\.\d{1,2})?$'
+    quantity_regex = r'^\d+$'
+    product_name = validate_input("Product name", name_regex)
+    product_price = validate_input("Product price ($)", price_regex)
+    product_quantity = validate_input("Product quantity (units)", quantity_regex)
+    return (product_name, product_price, product_quantity)

@@ -27,7 +27,7 @@ END$$
 
 DELIMITER ;
 
--- Triggers --
+-- TRIGGERS --
 
 DELIMITER $$
 

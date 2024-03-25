@@ -1,8 +1,13 @@
 {
   "welcome_message": "Welcome to PySQL Shop!",
-  "menu_options": [
-    { "id": "1", "text": "Add New Product" },
-    { "id": "2", "text": "Exit" }
+  "main_menu_options": [
+    {
+      "id": "1",
+      "text": "Add New Product",
+      "func": "add_product",
+      "sp": "add_new_product"
+    },
+    { "id": "2", "text": "Exit", "func": "None", "sp": "None" }
   ],
   "err_invalid_option": "Please select a valid option.",
   "err_unavailable_option": "Please select one of the listed options."
