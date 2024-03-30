@@ -31,9 +31,12 @@ def manage_menu(options):
         if(int(user_choice) == exit_num):
             exit()
         else:
-            f = getattr(Database, dict_func[user_choice])
-            args = f()
-            Database.exec_proc(dict_sp[user_choice], args)
+            if(dict_func[user_choice] is not "None"):
+                f = getattr(Database, dict_func[user_choice])
+                args = f()
+                val = Database.exec_proc(dict_sp[user_choice], args)
+                for row in val:
+                    print(row.fetchall())
     else:
         print("Please select one of the available options. \n")
         print_menu(options)

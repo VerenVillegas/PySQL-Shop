@@ -7,7 +7,13 @@
       "func": "add_product",
       "sp": "add_new_product"
     },
-    { "id": "2", "text": "Exit", "func": "None", "sp": "None" }
+    {
+      "id" : "2",
+      "text" : "Search Product",
+      "func" : "find_product",
+      "sp" : "find_product"
+    },
+    { "id": "3", "text": "Exit", "func": "None", "sp": "None" }
   ],
   "err_invalid_option": "Please select a valid option.",
   "err_unavailable_option": "Please select one of the listed options."

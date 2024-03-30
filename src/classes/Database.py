@@ -44,13 +44,16 @@ def exec_proc(storedProc, args):
     conn = db_connect()
     if(conn):
         try:
-
+            val = None
             cursor = conn.cursor()
             if(cursor):
                 if(args):
                     cursor.callproc(storedProc, args)
                 else:
                     cursor.callproc(storedProc)
+                val = cursor.stored_results()
+                return val
+            
         except mysql.connector.Error as e:
             error_msg = str(e.msg)
             if e.errno == 1644:  # SQLSTATE '45000'
@@ -91,3 +94,10 @@ def add_product():
     product_price = validate_input("Product price ($)", price_regex)
     product_quantity = validate_input("Product quantity (units)", quantity_regex)
     return (product_name, product_price, product_quantity)
+
+def find_product():
+    name_regex = r"^(?=.*[a-zA-Z])[\w'-]+(?:[\s_-][\w'-]+)*$"
+    barcode_regex = r'^\d+$'
+    product_name = validate_input("Product name", name_regex )
+    product_barcode = validate_input("Product barcode", barcode_regex)
+    return (product_barcode, product_name)

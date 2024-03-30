@@ -25,7 +25,15 @@ BEGIN
 	INSERT INTO `products` (product_name, price, quantity) VALUES (param_productName, param_productPrice, param_productQuantity);
 END$$
 
+DELIMITER $$
+
+CREATE PROCEDURE find_product(IN param_productBarcode INT, param_productName VARCHAR(100))
+BEGIN
+    SELECT barcode, product_name, price, quantity FROM `products` WHERE barcode = param_productBarcode OR product_name = param_productName;
+END$$
+
 DELIMITER ;
+
 
 -- TRIGGERS --
 
